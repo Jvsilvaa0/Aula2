@@ -18,45 +18,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Logo da Twitch de Fundo (Ajustado para ficar mais visível) */
-body::before {
-    content: "";
-    position: fixed;
-    width: 600px;
-    height: 600px;
-    bottom: -100px;
-    left: 50%;
-    transform: translateX(-50%);
-    /* Usei a imagem que você mandou aqui também para manter o padrão */
-    background: url("https://img.freepik.com/premium-vector/twitch-logo_578229-259.jpg?semt=ais_hybrid&w=740&q=80") no-repeat center;
-    background-size: contain;
-    opacity: 0.15; /* Aumentei aqui para ficar mais clara/visível */
-    z-index: -1;
-    pointer-events: none;
-    filter: grayscale(100%); /* Deixa em P&B para não brigar com as cores dos cards */
-}
-
-/* Novo Elemento: Logo flutuante no canto */
-body::after {
-    content: "";
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 80px;
-    height: 80px;
-    background: url("https://img.freepik.com/premium-vector/twitch-logo_578229-259.jpg?semt=ais_hybrid&w=740&q=80") no-repeat center;
-    background-size: contain;
-    z-index: 10;
-    animation: float 3s ease-in-out infinite;
-    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
-}
-
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); }
-    100% { transform: translateY(0px); }
-}
-
 /* Container dos Cards */
 .container {
     display: flex;
@@ -124,10 +85,9 @@ body::after {
 .card button:hover {
     filter: brightness(1.1);
     transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-/* Cores Específicas */
+/* Cores dos Cards */
 .insta { border-top-color: #E1306C; }
 .insta button { background: linear-gradient(45deg, #f09433, #e3165b, #bc1888); }
 
@@ -136,3 +96,69 @@ body::after {
 
 .yt { border-top-color: #FF0000; }
 .yt button { background-color: #FF0000; }
+
+/* --- SISTEMA DE LOGOS FLUTUANTES --- */
+
+.social-float-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 100;
+}
+
+.float-icon {
+    width: 55px;
+    height: 55px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
+}
+
+/* URLs das Imagens e Animações Individuais */
+.yt-float {
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png");
+    animation: floatAnim 3.5s ease-in-out infinite;
+}
+
+.insta-float {
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png");
+    animation: floatAnim 3s ease-in-out infinite;
+    animation-delay: 0.5s;
+}
+
+.twitch-float {
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Twitch_logo.svg/3840px-Twitch_logo.svg.png");
+    animation: floatAnim 4s ease-in-out infinite;
+    animation-delay: 1s;
+}
+
+/* Efeito Hover nas Logos */
+.float-icon:hover {
+    transform: scale(1.2) rotate(10deg);
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+}
+
+/* Animação Suave de Flutuar */
+@keyframes floatAnim {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Ajuste para Celular */
+@media (max-width: 600px) {
+    .social-float-container {
+        right: 20px;
+        bottom: 20px;
+        gap: 15px;
+    }
+    .float-icon {
+        width: 45px;
+        height: 45px;
+    }
+}
