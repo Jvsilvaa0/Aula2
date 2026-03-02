@@ -1,95 +1,138 @@
-/* Reset */
+/* Reset Básico */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Fundo branco */
+/* Fundo da Página */
 body {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: #ffffff;
+    align-items: flex-start;
+    padding-top: 80px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
-/* Logo Twitch no fundo */
+/* Logo da Twitch de Fundo (Ajustado para ficar mais visível) */
 body::before {
     content: "";
-    position: absolute;
-    width: 500px;
-    height: 500px;
-    bottom: -60px; 
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    bottom: -100px;
     left: 50%;
     transform: translateX(-50%);
-    background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Twitch_logo.svg/1280px-Twitch_logo.svg.png") no-repeat center;
+    /* Usei a imagem que você mandou aqui também para manter o padrão */
+    background: url("https://img.freepik.com/premium-vector/twitch-logo_578229-259.jpg?semt=ais_hybrid&w=740&q=80") no-repeat center;
     background-size: contain;
-    opacity: 0.08;
-    z-index: 0;
+    opacity: 0.15; /* Aumentei aqui para ficar mais clara/visível */
+    z-index: -1;
+    pointer-events: none;
+    filter: grayscale(100%); /* Deixa em P&B para não brigar com as cores dos cards */
 }
 
-/* Card */
-.card {
-    position: relative;
+/* Novo Elemento: Logo flutuante no canto */
+body::after {
+    content: "";
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 80px;
+    height: 80px;
+    background: url("https://img.freepik.com/premium-vector/twitch-logo_578229-259.jpg?semt=ais_hybrid&w=740&q=80") no-repeat center;
+    background-size: contain;
+    z-index: 10;
+    animation: float 3s ease-in-out infinite;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Container dos Cards */
+.container {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1200px;
     z-index: 1;
+    padding: 20px;
+}
+
+/* Estrutura Principal do Card */
+.card {
     background: #ffffff;
-    width: 350px;
-    border-radius: 20px;
+    width: 300px;
+    border-radius: 15px;
     overflow: hidden;
     text-align: center;
     padding-bottom: 25px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-    transition: 0.3s ease;
-
-    margin-top: -200px; /* sobe só um pouco mais */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-top: 6px solid transparent;
 }
 
-/* Hover no card */
 .card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 45px rgba(145, 70, 255, 0.3);
+    transform: translateY(-12px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
-/* Imagem */
 .card img {
     width: 100%;
     height: 250px;
     object-fit: cover;
+    object-position: top;
 }
 
-/* Título */
 .card h2 {
     margin-top: 20px;
     font-size: 22px;
-    color: #333;
+    color: #222;
 }
 
-/* Texto */
 .card p {
-    margin: 15px 20px;
-    color: #666;
-    font-size: 14px;
+    margin: 15px 25px;
+    color: #555;
+    font-size: 15px;
+    line-height: 1.5;
+    height: 65px;
 }
 
-/* Botão estilo Twitch */
 .card button {
     margin-top: 10px;
-    padding: 10px 25px;
+    padding: 12px 25px;
     border: none;
-    border-radius: 8px;
-    background: #9146FF;
+    border-radius: 30px;
     color: white;
     font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
     cursor: pointer;
-    transition: 0.3s ease;
+    transition: all 0.3s ease;
+    width: 85%;
 }
 
-/* Hover botão */
 .card button:hover {
-    background: #772ce8;
+    filter: brightness(1.1);
     transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
+
+/* Cores Específicas */
+.insta { border-top-color: #E1306C; }
+.insta button { background: linear-gradient(45deg, #f09433, #e3165b, #bc1888); }
+
+.twitch { border-top-color: #9146FF; }
+.twitch button { background-color: #9146FF; }
+
+.yt { border-top-color: #FF0000; }
+.yt button { background-color: #FF0000; }
